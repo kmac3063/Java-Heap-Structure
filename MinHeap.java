@@ -1,58 +1,73 @@
 import java.util.ArrayList;
 
 public class MinHeap{
-	private ArrayList<Integer> array = new ArrayList<Integer>();
+	private ArrayList<Integer> array;
+	private int size;
 
-	public MinHeap() {}
+	public MinHeap() {
+		this(10);
+	}
+
+	public MinHeap(int n) {
+		array = new ArrayList<>(n);
+		size = 0;
+	}
 
 	public MinHeap(MinHeap baseHeap){
-		for (int el : baseHeap.array){
-			array.add((int)el);
-		}
+		size = baseHeap.size;
+		array = new ArrayList<>(baseHeap.array);
 	}
 
 	public MinHeap(ArrayList<Integer> baseArray){
-		for (int i = 0; i < baseArray.size(); i++){
-			array.add((int)baseArray.get(i));
-		}
+		size = baseArray.size();
+		array = new ArrayList<>(baseArray);
 
-		for (int i = baseArray.size() / 2; i >= 0 ; i--){
-			array.add((int)baseArray.get(i));
+		for (int i = array.size() / 2; i >= 0 ; i--){
+			array.add(baseArray.get(i));
 		}	
 	}
 
 	public void add(int el){
-		array.add(el);
-		siftUp(array.size() - 1); 
+		size++;
+
+		if (size - 1 < array.size()) {
+			array.set(size - 1, el);
+		}
+		else {
+			array.add(el);
+		}
+
+		siftUp(array.size() - 1);
 	}
 
-	public int getMin(){
-		if (empty()) throw new RuntimeException();
+	public int get(){
+		if (empty()) 
+			throw new RuntimeException();
 
 		return array.get(0);
 	}
 
-	public void popMin(){
-		if (empty()) throw new RuntimeException();
+	public void pop(){
+		if (empty()) 
+			throw new RuntimeException();
 
-		array.set(0, array.get(array.size() - 1));
+		array.set(0, array.get(--size));
 		siftDown(0);
 	}
 
 	public void clear(){
-		array.clear();
+		size = 0;
 	}
 
 	public int size(){
-		return array.size();
+		return size;
 	}
 
 	public boolean empty(){
-		return array.size() == 0;
+		return size == 0;
 	}
 
-	public void println(){
-		int size = array.size();
+	public void print(){
 		System.out.println();
 		System.out.println("Size: " + size);
 		for (int i = 0; i < size; i++){
@@ -84,28 +99,32 @@ public class MinHeap{
 	private void siftDown(int ind) {
 		int firstChildInd = ind * 2 + 1;
 		int secondChildInd = ind * 2 + 2;
-		int lowestChildInd = firstChildInd;
+		int lowestChildInd = ind;
 
-		System.out.println(array.get(lowestChildInd) + " " + array.get(firstChildInd) + " " + array.get(secondChildInd));
-
-		while (ind != lowestChildInd){
+		while (firstChildInd < size){
 			ind = lowestChildInd;
 			firstChildInd = ind * 2 + 1;
 			secondChildInd = ind * 2 + 2;
 		
-			if (firstChildInd < array.size() && array.get(firstChildInd) < array.get(lowestChildInd)) {
+			if (firstChildInd < size &&
+				array.get(firstChildInd) < array.get(lowestChildInd)) {
+				
 				lowestChildInd = firstChildInd;
 			}
 
-			if (secondChildInd < array.size() && array.get(secondChildInd) < array.get(lowestChildInd)) {
+			if (secondChildInd < size && 
+				array.get(secondChildInd) < array.get(lowestChildInd)) {
+				
 				lowestChildInd = secondChildInd;
 			}
 
-			System.out.println("---" + array.get(lowestChildInd) + " " + array.get(ind) + "---");
+			if (lowestChildInd == ind) {
+				break;
+			}
+
 			int t = array.get(lowestChildInd);
 			array.set(lowestChildInd, array.get(ind));
 			array.set(ind, t);
-			System.out.println("---" + array.get(lowestChildInd) + " " + array.get(ind) + "---");
 		}
 	}
 }
