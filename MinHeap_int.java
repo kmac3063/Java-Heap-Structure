@@ -1,24 +1,24 @@
 import java.util.ArrayList;
 
-public class MinHeap{
+public class MinHeap_int{
 	private ArrayList<Integer> array;
 	private int size;
 
-	public MinHeap() {
+	public MinHeap_int() {
 		this(10);
 	}
 
-	public MinHeap(int n) {
+	public MinHeap_int(int n) {
 		array = new ArrayList<>(n);
 		size = 0;
 	}
 
-	public MinHeap(MinHeap baseHeap){
+	public MinHeap_int(MinHeap_int baseHeap){
 		size = baseHeap.size;
 		array = new ArrayList<>(baseHeap.array);
 	}
 
-	public MinHeap(ArrayList<Integer> baseArray){
+	public MinHeap_int(ArrayList<Integer> baseArray){
 		size = baseArray.size();
 		array = new ArrayList<>(baseArray);
 

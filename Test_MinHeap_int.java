@@ -1,6 +1,6 @@
-class TestMinHeapClass{
+class Test_MinHeap_int{
 	public static void main(String[] args){
-		MinHeap minHeap = new MinHeap();
+		MinHeap_int minHeap = new MinHeap_int();
 		minHeap.add(3);
 		minHeap.add(2);
 		minHeap.add(1);
@@ -8,7 +8,7 @@ class TestMinHeapClass{
 		minHeap.add(0);
 		minHeap.add(0);
 
-		MinHeap minHeap2 = new MinHeap(minHeap);
+		MinHeap_int minHeap2 = new MinHeap_int(minHeap);
 		int i = 1;
 		while (!minHeap.empty()){
 			System.out.println(i++ + "| " + minHeap.get());
